@@ -20,19 +20,20 @@ def get_sine_wave(freq, duration, sample_rate=44100, amplitude=4096):
     return wave
 
 
-def plot_wave(wave):
-    plt.plot(wave)
-    plt.show()
-
-
 notes = set_freqs(a4_octave, 4)
 wave_fa = get_sine_wave(notes['A'], 1)
+wave_sol = get_sine_wave(notes['G'], 1)
 
-for note in notes:
-    plt.plot(get_sine_wave(notes[note], 1)[0:440])
-plt.xlabel('Time')
-plt.ylabel('Amplitude')
+harmonic = np.add(wave_fa, wave_sol)
+plt.plot(harmonic[0:2500])
 plt.show()
 
 
-wavfile.write('pure_A.wav', rate=44100, data=wave_fa.astype(np.int16))
+#for note in notes:
+#    plt.plot(get_sine_wave(notes[note], 1)[0:2500])
+#plt.xlabel('Time')
+#plt.ylabel('Amplitude')
+#plt.show()
+
+
+wavfile.write('harmonic_A_G.wav', rate=44100, data=harmonic.astype(np.int16))
